@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-sm-12 d-flex justify-content-between">
+        <ul class="list-inline rating-list" *ngFor="let star of stars" style="display: inline-block">
+            <li [ngClass]="{'selected': (star <= selectedValue)}">
+                <i class="fa fa-star"></i>
+            </li>
+        </ul>
+
+        <ul class="list-inline rating-list" style="display: inline-block; margin-left: 15px">
+            <li class="text-dark">
+                <span>{{users}}</span>
+                <i class="fa fa-user m-1" aria-hidden="true"></i>
+            </li>
+        </ul>
+
+    </div>
+</div>

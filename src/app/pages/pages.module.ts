@@ -5,7 +5,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { Component1Component } from './component1/component1.component';
 import { Component2Component } from './component2/component2.component';
 
-
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,9 @@ import { Component2Component } from './component2/component2.component';
   ],
   imports: [
     CommonModule,
-    PagesRoutingModule
+    PagesRoutingModule,
+
+    MatTableModule,
   ]
 })
 export class PagesModule { }
