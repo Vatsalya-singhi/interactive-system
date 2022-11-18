@@ -2,7 +2,7 @@
 
     <!-- header -->
     <mat-toolbar>
-        <button mat-icon-button class="example-icon mr-2" (click)="backClicked();">
+        <button mat-icon-button class="example-icon mr-2" (click)="_location.back();">
             <mat-icon>arrow_back</mat-icon>
         </button>
         <span>Angular Material DataTable</span>
@@ -10,7 +10,8 @@
         <button mat-icon-button class="example-icon favorite-icon">
             <mat-icon>favorite_border</mat-icon>
         </button>
-        <button mat-icon-button class="example-icon" routerLink="pages/component1">
+        <button mat-icon-button class="example-icon" [disabled]="actualValue != userValue"
+            routerLink="pages/component1">
             <mat-icon>arrow_forward</mat-icon>
         </button>
     </mat-toolbar>
@@ -18,15 +19,26 @@
 
     <div class="container mt-2">
 
-        <p class="mt-5">Find number of entries where fruit is kiwi -</p>
+        <!-- enter value -->
+        <div>
+            <p class="mt-5">Find number of entries where fruit is kiwi - </p>
+            <mat-form-field>
+                <input matInput appearance="outline" placeholder="Enter count" [(ngModel)]="userValue">
+                <mat-hint>The answer is : {{actualValue}}</mat-hint>
+            </mat-form-field>
+        </div>
 
-        <mat-form-field>
-            <mat-label>Filter</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
-        </mat-form-field>
+        <!-- search -->
+        <div class="d-flex align-items-center justify-content-end">
+            <mat-form-field>
+                <mat-label>Search</mat-label>
+                <input matInput appearance="outline" (keyup)="applyFilter($event)" placeholder="Search" #input>
+            </mat-form-field>
+        </div>
 
         <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource" matSort>
+            <table mat-table [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="asc"
+                matSortDisableClear>
 
                 <!-- ID Column -->
                 <ng-container matColumnDef="id">
