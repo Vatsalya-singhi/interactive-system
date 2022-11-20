@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
-// import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Firestore, collectionData, collection, CollectionReference, DocumentData } from '@angular/fire/firestore';
+import { Observable, Subscription } from 'rxjs';
+import { Location } from '@angular/common';
+
+import * as _ from "lodash";
+import * as moment from "moment";
 
 @Component({
     selector: 'component1',
@@ -10,31 +13,71 @@ import { Firestore, collectionData, collection, CollectionReference, DocumentDat
 })
 export class Component1Component implements OnInit {
 
+    public actualValue: number = 0;
+    public userValue: number = 0;
+
     public logList: any[] = [];
+
+    public first: number = 0;
+    public rows: number = 5;
+    public columnList: any[] = [
+        { header: "ID", field: "id" },
+        { header: "Type", field: "type" },
+        { header: "Log", field: "error" },
+        { header: "Date", field: "createdAt" },
+    ];
+    public globalFilterFields = ["id", "type", "error", "createdAt"];
+
+    public subscriptions: Subscription[] = []
 
     constructor(
         public firestore: Firestore,
-        // public afs: AngularFirestore
+        public _location: Location,
     ) { }
 
     public ngOnInit(): void {
         this.fetchLogs();
     }
 
+    public ngOnDestroy(): void {
+        this.subscriptions.forEach((sub) => sub.unsubscribe());
+    }
+
     public fetchLogs() {
-        // this.afs.collection("logs")
-        //     .valueChanges()
-        //     .subscribe((logList: any[]) => {
-        //         console.log("logList =>", logList);
-        //         this.logList = logList;
-        //     })
-
         const col: CollectionReference<DocumentData> = collection(this.firestore, 'logs');
-        collectionData(col).subscribe((data) => {
-            console.log("data=>", data);
-            this.logList = this.logList;
-        })
+        let obs$: Subscription = collectionData(col)
+            .subscribe((data) => {
 
+                _.forEach(data, (obj) => {
+                    let timestamp = obj["createdAt"];
+                    obj["createdAt"] = moment(new Date(timestamp.seconds * 1000)).format("DD-MM-YYYY")
+                })
+
+                this.logList = data;
+                console.log("this.logList=>", this.logList);
+            })
+
+        this.subscriptions.push(obs$);
+    }
+
+    public next() {
+        this.first = this.first + this.rows;
+    }
+
+    public prev() {
+        this.first = this.first - this.rows;
+    }
+
+    public reset() {
+        this.first = 0;
+    }
+
+    public isLastPage(): boolean {
+        return this.logList ? this.first === (this.logList.length - this.rows) : true;
+    }
+
+    public isFirstPage(): boolean {
+        return this.logList ? this.first === 0 : true;
     }
 
 }

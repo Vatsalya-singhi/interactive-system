@@ -1,152 +1,74 @@
-<div class="h-100 w-100">
+<div class="w-100 h-100" style="background : #f2f2f2;">
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand text-light" [routerLink]="['/']">
-                <i class="fa fa-arrow-left" aria-hidden="true" style="margin-right: 15px;"></i>
-                <span class="my-5">Bootstrap Table</span>
-            </a>
+    <!-- header -->
+    <mat-toolbar>
+        <button mat-icon-button class="example-icon mr-2" (click)="_location.back();">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <span>Prime NG DataTable</span>
+        <span class="example-spacer"></span>
+        <button mat-icon-button class="example-icon favorite-icon">
+            <mat-icon>favorite_border</mat-icon>
+        </button>
+        <button mat-icon-button class="example-icon" [disabled]="actualValue != userValue"
+            routerLink="pages/component1">
+            <mat-icon>arrow_forward</mat-icon>
+        </button>
+    </mat-toolbar>
 
-            <ul class="navbar-nav d-flex flex-row me-1">
-                <li class="nav-item me-3 me-lg-0">
-                    <a class="nav-link text-white" href="#">
-                        Rate
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
 
-    <div class="container-fluid d-flex py-5 px-4">
 
-        <div class="w-70 px-2 table-responsive">
+    <div class="container mt-2">
 
-            <table class="table table-hover table-sm align-middle mb-0">
-                <!-- class="table-dark" -->
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Title</th>
-                        <th>Status</th>
-                        <th>Position</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <tr>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt=""
-                                    style="width: 45px; height: 45px" class="rounded-circle" />
-                                <div class="ms-3">
-                                    <p class="fw-bold mb-1">John Doe</p>
-                                    <p class="text-muted mb-0">john.doe@gmail.com</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <p class="fw-normal mb-1">Software engineer</p>
-                            <p class="text-muted mb-0">IT department</p>
-                        </td>
-                        <td>
-                            <span class="badge badge-success rounded-pill d-inline">Active</span>
-                        </td>
-                        <td>Senior</td>
-                        <td>
-                            <button type="button" class="btn btn-primary btn-sm btn-rounded">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <img src="https://mdbootstrap.com/img/new/avatars/6.jpg" class="rounded-circle" alt=""
-                                    style="width: 45px; height: 45px" />
-                                <div class="ms-3">
-                                    <p class="fw-bold mb-1">Alex Ray</p>
-                                    <p class="text-muted mb-0">alex.ray@gmail.com</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <p class="fw-normal mb-1">Consultant</p>
-                            <p class="text-muted mb-0">Finance</p>
-                        </td>
-                        <td>
-                            <span class="badge badge-primary rounded-pill d-inline">Onboarding</span>
-                        </td>
-                        <td>Junior</td>
-                        <td>
-                            <button type="button" class="btn btn-primary btn-sm btn-rounded">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <img src="https://mdbootstrap.com/img/new/avatars/7.jpg" class="rounded-circle" alt=""
-                                    style="width: 45px; height: 45px" />
-                                <div class="ms-3">
-                                    <p class="fw-bold mb-1">Kate Hunington</p>
-                                    <p class="text-muted mb-0">kate.hunington@gmail.com</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <p class="fw-normal mb-1">Designer</p>
-                            <p class="text-muted mb-0">UI/UX</p>
-                        </td>
-                        <td>
-                            <span class="badge badge-warning rounded-pill d-inline">Awaiting</span>
-                        </td>
-                        <td>Senior</td>
-                        <td>
-                            <button type="button" class="btn btn-primary btn-sm btn-rounded">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                        </td>
-                    </tr>
-
-                </tbody>
-            </table>
-
+        <!-- enter value -->
+        <div>
+            <p class="mt-5">Find number of entries where fruit is kiwi - </p>
+            <mat-form-field>
+                <input matInput appearance="outline" placeholder="Enter count" [(ngModel)]="userValue">
+                <mat-hint>The answer is : {{actualValue}}</mat-hint>
+            </mat-form-field>
         </div>
 
-        <div class="w-30 px-2 border rounded box-shadow-1">
 
-            <h3 class="text-underline text-center">Performance Stats : </h3>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item d-flex align-items-center justify-content-between ">
-                    Load Time
-                    <span class="badge badge-primary text-green">14 ms</span>
-                </li>
-                <li class="list-group-item d-flex align-items-center justify-content-between ">
-                    Data transfered
-                    <span class="badge badge-primary badge-pill text-green">2 MB</span>
-                </li>
-                <li class="list-group-item d-flex align-items-center justify-content-between ">
-                    RAM utilised
-                    <span class="badge badge-primary badge-pill text-green">1 kb</span>
-                </li>
-                <li class="list-group-item d-flex align-items-center justify-content-between ">
-                    Library size
-                    <span class="badge badge-primary badge-pill text-green">1 kb</span>
-                </li>
-                <li class="list-group-item d-flex align-items-center justify-content-between ">
-                    Number of Documents fetched
-                    <span class="badge badge-primary badge-pill text-green">10</span>
-                </li>
-            </ul>
+        <div class="">
+            <!-- <h5>Programmatic Control</h5> -->
+            <!-- <div class="mb-3">
+                <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()"
+                    styleClass="p-button-text"></p-button>
+                <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
+                <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()"
+                    styleClass="p-button-text"></p-button>
+            </div> -->
 
+            <p-table [value]="logList" styleClass="p-datatable-sm p-datatable-striped" dataKey="id" [paginator]="true"
+                [rows]="rows" [showCurrentPageReport]="true" [(first)]="first" [tableStyle]="{'min-width': '50rem'}"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[5, 10, 25, 100]" [globalFilterFields]="globalFilterFields"
+                [scrollable]="true" scrollHeight="400px">
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th *ngFor="let obj of columnList" [pSortableColumn]="obj.field" style="width:25%">
+                            {{obj.header}}
+                            <p-sortIcon [field]="obj.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th *ngFor="let obj of columnList">
+                            <p-columnFilter type="text" [field]="obj.field"></p-columnFilter>
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-log>
+                    <tr>
+                        <td *ngFor="let obj of columnList">{{log[obj.field]}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
         </div>
 
     </div>
+
 
 </div>
