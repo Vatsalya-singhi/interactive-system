@@ -1,28 +1,22 @@
 <div class="w-100 h-100" style="background : #f2f2f2;">
 
-    <!-- header -->
-    <mat-toolbar>
-        <button mat-icon-button class="example-icon mr-2" (click)="_location.back();">
-            <mat-icon>arrow_back</mat-icon>
-        </button>
-        <span>Prime NG DataTable</span>
-        <span class="example-spacer"></span>
-        <button mat-icon-button class="example-icon favorite-icon">
-            <mat-icon>favorite_border</mat-icon>
-        </button>
-        <button mat-icon-button class="example-icon" [disabled]="actualValue != userValue"
-            routerLink="pages/component1">
-            <mat-icon>arrow_forward</mat-icon>
-        </button>
-    </mat-toolbar>
+    <p-toolbar>
+        <div class="p-toolbar-group-left">
+            <p-button styleClass="p-button-link p-button" icon="pi pi-arrow-left"></p-button>
+            <span>Prime NG DataTable</span>
+        </div>
+
+        <div class="p-toolbar-group-right">
+            <p-button styleClass="p-button-link p-button" icon="pi pi-heart"></p-button>
+            <p-button styleClass="p-button-link p-button" icon="pi pi-arrow-right"></p-button>
+        </div>
+    </p-toolbar>
 
 
-
-    <div class="container mt-2">
-
+    <div class="container">
         <!-- enter value -->
         <div>
-            <p class="mt-5">Find number of entries where fruit is kiwi - </p>
+            <p class="mt-2">Find number of entries where fruit is kiwi - </p>
             <mat-form-field>
                 <input matInput appearance="outline" placeholder="Enter count" [(ngModel)]="userValue">
                 <mat-hint>The answer is : {{actualValue}}</mat-hint>
@@ -31,20 +25,12 @@
 
 
         <div class="">
-            <!-- <h5>Programmatic Control</h5> -->
-            <!-- <div class="mb-3">
-                <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()"
-                    styleClass="p-button-text"></p-button>
-                <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
-                <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()"
-                    styleClass="p-button-text"></p-button>
-            </div> -->
 
             <p-table [value]="logList" styleClass="p-datatable-sm p-datatable-striped" dataKey="id" [paginator]="true"
                 [rows]="rows" [showCurrentPageReport]="true" [(first)]="first" [tableStyle]="{'min-width': '50rem'}"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                [rowsPerPageOptions]="[5, 10, 25, 100]" [globalFilterFields]="globalFilterFields"
-                [scrollable]="true" scrollHeight="400px">
+                [rowsPerPageOptions]="[5, 10, 25, 100]" [globalFilterFields]="globalFilterFields" [scrollable]="true"
+                scrollHeight="400px">
 
                 <ng-template pTemplate="header">
                     <tr>

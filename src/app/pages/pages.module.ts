@@ -13,6 +13,8 @@ import { MaterialExampleModule } from '../../material.module';
 // PRIMENG MODULES
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
+import { ToolbarModule } from 'primeng/toolbar';
+
 
 @NgModule({
     declarations: [
@@ -30,6 +32,7 @@ import { ButtonModule } from 'primeng/button';
 
         TableModule,
         ButtonModule,
+        ToolbarModule,
     ]
 })
 export class PagesModule { }
