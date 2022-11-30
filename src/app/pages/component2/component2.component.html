@@ -1,6 +1,5 @@
-<div class="w-100 h-100" style="background : #f2f2f2;">
+<!-- <div class="w-100 h-100" style="background : #f2f2f2;">
 
-    <!-- header -->
     <mat-toolbar>
         <button mat-icon-button class="example-icon mr-2" (click)="_location.back();">
             <mat-icon>arrow_back</mat-icon>
@@ -19,7 +18,6 @@
 
     <div class="container mt-2">
 
-        <!-- enter value -->
         <div>
             <p class="mt-5">Find number of entries where fruit is kiwi - </p>
             <mat-form-field>
@@ -28,7 +26,6 @@
             </mat-form-field>
         </div>
 
-        <!-- search -->
         <div class="d-flex align-items-center justify-content-end">
             <mat-form-field>
                 <mat-label>Search</mat-label>
@@ -40,25 +37,21 @@
             <table mat-table [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="asc"
                 matSortDisableClear>
 
-                <!-- ID Column -->
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
                     <td mat-cell *matCellDef="let row"> {{row.id}} </td>
                 </ng-container>
 
-                <!-- Progress Column -->
                 <ng-container matColumnDef="progress">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Progress </th>
                     <td mat-cell *matCellDef="let row"> {{row.progress}}% </td>
                 </ng-container>
 
-                <!-- Name Column -->
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
                     <td mat-cell *matCellDef="let row"> {{row.name}} </td>
                 </ng-container>
 
-                <!-- Fruit Column -->
                 <ng-container matColumnDef="fruit">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Fruit </th>
                     <td mat-cell *matCellDef="let row"> {{row.fruit}} </td>
@@ -67,7 +60,6 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-                <!-- Row shown when there is no matching data. -->
                 <tr class="mat-row" *matNoDataRow>
                     <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
                 </tr>
@@ -77,4 +69,4 @@
         </div>
 
     </div>
-</div>
+</div> -->

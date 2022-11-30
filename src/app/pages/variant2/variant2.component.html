@@ -1,0 +1,223 @@
+<div class="w-100 h-100" style="background : #f2f2f2;">
+
+
+    <mat-toolbar>
+        <button mat-icon-button class="example-icon mr-2" (click)="_location.back();">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <span>Variant 2 (Custom design)</span>
+        <span class="example-spacer"></span>
+        <button mat-icon-button class="example-icon favorite-icon">
+            <mat-icon>favorite_border</mat-icon>
+        </button>
+        <button mat-icon-button class="example-icon" routerLink="/">
+            <mat-icon>arrow_forward</mat-icon>
+        </button>
+    </mat-toolbar>
+
+
+    <div class="container mt-2">
+
+        <h2>Task: Enter the following credentials to the form.</h2>
+
+        <div class="row">
+
+            <div class="col-5 mx-4">
+
+                <mat-card class="example-card rounded m-2 mb-5">
+                    <div class="d-flex align-items-center justify-content-around">
+                        <div class="rounded-circle border d-flex justify-content-center align-items-center mr-2"
+                            style="width:75px;height:75px" alt="Avatar">
+                            <i class="fas fa-user-alt fa-2x text-info"></i>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <span>Card Holder - {{user.cardHolderName}}</span>
+                            <span>Card Number - {{user.cardNumber}}</span>
+                            <span>Card Expiry - {{user.expiryMonth}}/{{user.expiryYear}}</span>
+                            <span>Card CVC - {{user.cvc}}</span>
+                        </div>
+                    </div>
+                </mat-card>
+
+                <mat-card class="example-card rounded m-2 mb-5">
+                    <h3 class="card-title mb-0">Performetrics Analysis</h3>
+                    <h4 class="card-subtitle mb-1 text-muted">Analytics based on user input</h4>
+                    <p class="card-text mb-0 w-100 d-flex">
+                        <span class="col-6 ">Timer</span>
+                        <span class="col"></span>
+                        <span class="col-4 font-weight-normal text-left">10 s</span>
+                    </p>
+                    <p class="card-text mb-0 w-100 d-flex">
+                        <span class="col-6 ">Average Typing speed</span>
+                        <span class="col"></span>
+                        <span class="col-4 font-weight-normal text-left">20 words per min</span>
+                    </p>
+                    <p class="card-text mb-0 w-100 d-flex">
+                        <span class="col-6 "># of backspaces / delete pressed</span>
+                        <span class="col"></span>
+                        <span class="col-4 font-weight-normal text-left">10 (counts)</span>
+                    </p>
+                </mat-card>
+
+            </div>
+
+            <div class="col-5">
+                <div class="card rounded">
+
+                    <div class="card-header">
+                        <p class="mr-2 mb-1">Credit Card</p>
+                        <small>enter your card details</small>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="row m-4px">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name" class="m-4px">Name</label>
+                                    <input class="form-control text-uppercase" id="name" type="text" placeholder="Name">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row m-4px">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="ccnumber" class="m-4px">Credit Card Number</label>
+
+                                    <div class="input-group">
+                                        <input type="tel" class="form-control" minlength="16" maxlength="16"
+                                            placeholder="0000-0000-0000-0000" aria-label="Credit Card Number"
+                                            aria-describedby="basic-addon1"
+                                            pattern="[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text h-100 w-100" id="basic-addon1">
+                                                <i class="fas fa-credit-card"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row m-4px">
+                            <div class="form-group col-sm-4">
+                                <label for="ccmonth" class="m-4px">Month</label>
+                                <select class="form-control" id="ccmonth">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="ccyear" class="m-4px">Year</label>
+                                <select class="form-control" id="ccyear">
+                                    <option>2014</option>
+                                    <option>2015</option>
+                                    <option>2016</option>
+                                    <option>2017</option>
+                                    <option>2018</option>
+                                    <option>2019</option>
+                                    <option>2020</option>
+                                    <option>2021</option>
+                                    <option>2022</option>
+                                    <option>2023</option>
+                                    <option>2024</option>
+                                    <option>2025</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="cvv" class="m-4px">CVV/CVC</label>
+                                    <input class="form-control" id="cvv" type="tel" minlength="3" maxlength="4"
+                                        placeholder="CVV">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-around">
+                            <button class="btn btn-danger" type="reset">
+                                <i class="mdi mdi-lock-reset"></i> Reset
+                            </button>
+                            <button class="btn btn-success float-right" type="submit">
+                                <i class="mdi mdi-gamepad-circle"></i> Submit
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+
+<!-- <form class="credit-card">
+    <div class="front">
+        <div class="card-data-row">
+            <div class="brand-name">WDS Bank</div>
+            <img data-logo src="assets/visa.svg" class="logo">
+        </div>
+        <fieldset class="form-group">
+            <legend>Card Number</legend>
+            <label for="cc-1">Card Number</label>
+            <div data-connected-inputs class="cc-inputs horizontal-input-stack">
+                <input type="tel" maxlength="4" aria-label="Credit Card First 4 Digits" id="cc-1" required
+                    pattern="[0-9]{4}" />
+                <input type="tel" maxlength="4" aria-label="Credit Card Second 4 Digits" required pattern="[0-9]{4}" />
+                <input type="tel" maxlength="4" aria-label="Credit Card Third 4 Digits" required pattern="[0-9]{4}" />
+                <input type="tel" maxlength="4" aria-label="Credit Card Last 4 Digits" required pattern="[0-9]{4}" />
+            </div>
+        </fieldset>
+        <div class="input-row">
+            <div class="form-group name-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" required>
+            </div>
+            <fieldset class="form-group">
+                <legend>Expiration</legend>
+                <label for="expiration-month">Expiration</label>
+                <div class="horizontal-input-stack">
+                    <select id="expiration-month" aria-label="Expiration Month" required>
+                        <option>01</option>
+                        <option>02</option>
+                        <option>03</option>
+                        <option>04</option>
+                        <option>05</option>
+                        <option>06</option>
+                        <option>07</option>
+                        <option>08</option>
+                        <option>09</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                    </select>
+                    <select id="expiration-year" aria-label="Expiration Year" required data-expiration-year></select>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="back">
+        <div class="stripe"></div>
+        <div class="form-group cvc-group">
+            <label for="cvc">CVC</label>
+            <input class="cvc-input" type="tel" maxlength="3" id="cvc" required />
+        </div>
+    </div>
+</form> -->

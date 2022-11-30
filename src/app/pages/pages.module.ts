@@ -14,12 +14,14 @@ import { MaterialExampleModule } from '../../material.module';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
+import { Variant2Component } from './variant2/variant2.component';
 
 
 @NgModule({
     declarations: [
-        Component1Component,
-        Component2Component,
+        // Component1Component,
+        // Component2Component,
+        Variant2Component,
     ],
     imports: [
         CommonModule,
@@ -30,9 +32,9 @@ import { ToolbarModule } from 'primeng/toolbar';
 
         MaterialExampleModule,
 
-        TableModule,
-        ButtonModule,
-        ToolbarModule,
+        // TableModule,
+        // ButtonModule,
+        // ToolbarModule,
     ]
 })
 export class PagesModule { }
