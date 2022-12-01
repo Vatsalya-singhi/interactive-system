@@ -10,8 +10,8 @@ export class Variant2Component implements OnInit {
 
 
     public user: any = {
-        cardHolderName: "Vijay",
-        cardNumber: 1234567890,
+        cardHolderName: "Vijay Sharma",
+        cardNumber: "1234-5678-9012-1221",
         expiryMonth: 10,
         expiryYear: 23,
         cvc: 123,

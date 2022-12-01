@@ -1,67 +1,63 @@
-<div class="w-100 h-100" style="background : #f2f2f2;">
+<div class="w-100 h-100 row rounded m-0 p-0" style="background : #f2f2f2; overflow:hidden">
+
+    <!-- left side -->
+    <div class="col-3 pt-2 " style="background: #9fcdf2">
+
+        <!-- AVATAR -->
+        <div class="d-flex justify-content-center align-items-center m-2">
+            <img src="assets/avatar.jpg" alt="Avatar" loading="lazy" height="150px" width="150px"
+                style="border-radius: 50%; object-fit: cover; ">
+        </div>
+        <p class="d-flex align-self-center justify-content-center text-secondary m-0 mt-2 h5">Profile Details</p>
+        <!-- CARD CREDENTIALS -->
+        <div class="h-50 row px-3">
+            <div class="col"></div>
+            <div class="col-9 d-flex flex-column justify-content-center">
+                <!-- CARD INFO -->
+                <div>
+                    <p class="h6">Card Holder</p>
+                    <p>{{user.cardHolderName}}</p>
+                </div>
+
+                <div>
+                    <p class="h6">Card Number</p>
+                    <p>{{user.cardNumber}}</p>
+                </div>
+
+                <div>
+                    <p class="h6">Card Expiry</p>
+                    <p>{{user.expiryMonth}}/{{user.expiryYear}}</p>
+                </div>
+
+                <div>
+                    <p class="h6">Card CVC</p>
+                    <p>{{user.cvc}}</p>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+        <!-- RATE APP -->
+        <div class="d-flex justify-content-center align-items-center">
+            <mat-card class="example-card rounded m-1 p-0">
+                <button class="btn d-flex justify-content-center align-items-center">
+                    <h2 class="m-2">Rate!</h2>
+                    <i class="fa-solid fa-star fa-2x"></i>
+                </button>
+            </mat-card>
+        </div>
 
 
-    <mat-toolbar>
-        <button mat-icon-button class="example-icon mr-2" (click)="_location.back();">
-            <mat-icon>arrow_back</mat-icon>
-        </button>
-        <span>Variant 2 (Custom design)</span>
-        <span class="example-spacer"></span>
-        <button mat-icon-button class="example-icon favorite-icon">
-            <mat-icon>favorite_border</mat-icon>
-        </button>
-        <button mat-icon-button class="example-icon" routerLink="/">
-            <mat-icon>arrow_forward</mat-icon>
-        </button>
-    </mat-toolbar>
+    </div>
 
+    <!-- right side -->
+    <div class="col-9">
 
-    <div class="container mt-2">
-
-        <h2>Task: Enter the following credentials to the form.</h2>
+        <h1 class="my-5 d-flex justify-content-center">Task: Enter the following credentials to the form.</h1>
 
         <div class="row">
+            <div class="col"></div>
+            <div class="col-7">
 
-            <div class="col-5 mx-4">
-
-                <mat-card class="example-card rounded m-2 mb-5">
-                    <div class="d-flex align-items-center justify-content-around">
-                        <div class="rounded-circle border d-flex justify-content-center align-items-center mr-2"
-                            style="width:75px;height:75px" alt="Avatar">
-                            <i class="fas fa-user-alt fa-2x text-info"></i>
-                        </div>
-                        <div class="d-flex flex-column">
-                            <span>Card Holder - {{user.cardHolderName}}</span>
-                            <span>Card Number - {{user.cardNumber}}</span>
-                            <span>Card Expiry - {{user.expiryMonth}}/{{user.expiryYear}}</span>
-                            <span>Card CVC - {{user.cvc}}</span>
-                        </div>
-                    </div>
-                </mat-card>
-
-                <mat-card class="example-card rounded m-2 mb-5">
-                    <h3 class="card-title mb-0">Performetrics Analysis</h3>
-                    <h4 class="card-subtitle mb-1 text-muted">Analytics based on user input</h4>
-                    <p class="card-text mb-0 w-100 d-flex">
-                        <span class="col-6 ">Timer</span>
-                        <span class="col"></span>
-                        <span class="col-4 font-weight-normal text-left">10 s</span>
-                    </p>
-                    <p class="card-text mb-0 w-100 d-flex">
-                        <span class="col-6 ">Average Typing speed</span>
-                        <span class="col"></span>
-                        <span class="col-4 font-weight-normal text-left">20 words per min</span>
-                    </p>
-                    <p class="card-text mb-0 w-100 d-flex">
-                        <span class="col-6 "># of backspaces / delete pressed</span>
-                        <span class="col"></span>
-                        <span class="col-4 font-weight-normal text-left">10 (counts)</span>
-                    </p>
-                </mat-card>
-
-            </div>
-
-            <div class="col-5">
                 <div class="card rounded">
 
                     <div class="card-header">
@@ -71,6 +67,7 @@
 
                     <div class="card-body">
 
+                        <!-- NAME -->
                         <div class="row m-4px">
                             <div class="col-sm-12">
                                 <div class="form-group">
@@ -79,7 +76,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        <!-- NUMBER -->
                         <div class="row m-4px">
                             <div class="col-sm-12">
                                 <div class="form-group">
@@ -99,7 +96,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        <!-- MONTH YEAR CVV -->
                         <div class="row m-4px">
                             <div class="form-group col-sm-4">
                                 <label for="ccmonth" class="m-4px">Month</label>
@@ -138,7 +135,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="cvv" class="m-4px">CVV/CVC</label>
-                                    <input class="form-control" id="cvv" type="tel" minlength="3" maxlength="4"
+                                    <input class="form-control" id="cvv" type="tel" minlength="3" maxlength="3"
                                         placeholder="CVV">
                                 </div>
                             </div>
@@ -158,13 +155,15 @@
                     </div>
 
                 </div>
-            </div>
 
+            </div>
+            <div class="col"></div>
         </div>
+
     </div>
 
-
 </div>
+
 
 
 
