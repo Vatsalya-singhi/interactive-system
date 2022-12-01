@@ -75,7 +75,7 @@
                                     <div class="form-group">
                                         <label for="name" class="m-4px">Name</label>
                                         <input class="form-control text-uppercase" id="name" type="text"
-                                            formControlName="name">
+                                            formControlName="name" (keyup)="onKeyUp($event)">
                                     </div>
                                     <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
                                         <div *ngIf="name.errors?.['required']">
@@ -96,7 +96,7 @@
                                         <div class="input-group">
                                             <input type="tel" class="form-control" aria-label="Credit Card Number"
                                                 minlength="16" maxlength="16" aria-describedby="basic-addon1"
-                                                formControlName="number">
+                                                formControlName="number" (keyup)="onKeyUp($event)">
                                             <div class="input-group-append">
                                                 <span class="input-group-text h-100 w-100" id="basic-addon1">
                                                     <i class="fas fa-credit-card"></i>
@@ -163,7 +163,7 @@
                                     <div class="form-group">
                                         <label for="cvv" class="m-4px">CVV</label>
                                         <input class="form-control" id="cvv" formControlName="cvv" type="tel"
-                                            minlength="3" maxlength="3" placeholder="CVV">
+                                            minlength="3" maxlength="3" placeholder="CVV" (keyup)="onKeyUp($event)">
                                         <div *ngIf="cvv.invalid && (cvv.dirty || cvv.touched)" class="text-danger">
                                             <div *ngIf="cvv.errors?.['required']">
                                                 CVV is required.

@@ -28,6 +28,8 @@ export class Variant2Component implements OnInit {
     public startTime: number = 0;
     public endTime: number = 0;
 
+    public backSpaceCount = 0;
+
     constructor(
         public _location: Location,
         public pageService: PagesService,
@@ -43,14 +45,21 @@ export class Variant2Component implements OnInit {
     }
 
     public onSubmit() {
+        // console.warn(this.creditCardForm.value);
         this.endTime = new Date().getTime();
-        console.warn(this.creditCardForm.value);
         const timeTaken: number = (this.endTime - this.startTime) / 1000;
-        console.error("timeTaken=>", timeTaken);
+        console.log("timeTaken=>", timeTaken);
+        console.log("Number of backspaces/delete pressed=>", this.backSpaceCount);
     }
 
     public resetForm() {
-        this.creditCardForm.reset();
+        this.creditCardForm.reset({
+            name: new FormControl(""),
+            number: new FormControl(null),
+            month: new FormControl(1),
+            year: new FormControl(2022),
+            cvv: new FormControl(null),
+        });
         this.creditCardForm.markAsPristine();
     }
 
@@ -81,6 +90,17 @@ export class Variant2Component implements OnInit {
         this.month.updateValueAndValidity();
         this.year.updateValueAndValidity();
         this.cvv.updateValueAndValidity();
+    }
+
+    /**
+     * ANALYTICS
+    */
+    public onKeyUp(event: KeyboardEvent) {
+        console.log(event.keyCode);
+        if (event.keyCode === 8 || event.keyCode === 46) {
+            this.backSpaceCount += 1;
+            console.log('backSpaceCount=>', this.backSpaceCount);
+        }
     }
 
     /**
