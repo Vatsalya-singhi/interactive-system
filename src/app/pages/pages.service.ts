@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
@@ -28,6 +28,23 @@ export class PagesService {
         }).pipe(
             map((res: any) => res.payload)
         );
+    }
+
+    public fetchUser(): Observable<Object> {
+        return this.http.get(`https://randomuser.me/api/`)
+            .pipe(
+                map((data: any) => data?.results[0]),
+                map((res: any) => {
+                    return {
+                        cardHolderName: `${res.name.first} ${res.name.last}`,
+                        cardNumber: Math.floor(Math.random() * 1000000000000000) + 1000000000000000,
+                        expiryMonth: Math.floor(Math.random() * 12) + 1,
+                        expiryYear: Math.floor(Math.random() * 20) + 2022,
+                        cvv: Math.floor(Math.random() * 1000) + 1,
+                        profile: res.picture.large,
+                    }
+                })
+            )
     }
 
 }

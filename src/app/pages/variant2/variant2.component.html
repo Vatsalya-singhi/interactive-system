@@ -5,7 +5,7 @@
 
         <!-- AVATAR -->
         <div class="d-flex justify-content-center align-items-center m-2">
-            <img src="assets/avatar.jpg" alt="Avatar" loading="lazy" height="150px" width="150px"
+            <img [src]="user?.profile" alt="Avatar" loading="lazy" height="150px" width="150px"
                 style="border-radius: 50%; object-fit: cover; ">
         </div>
         <p class="d-flex align-self-center justify-content-center text-secondary m-0 mt-2 h5">Profile Details</p>
@@ -16,22 +16,22 @@
                 <!-- CARD INFO -->
                 <div>
                     <p class="h6">Card Holder</p>
-                    <p>{{user.cardHolderName}}</p>
+                    <p>{{user?.cardHolderName}}</p>
                 </div>
 
                 <div>
                     <p class="h6">Card Number</p>
-                    <p>{{user.cardNumber}}</p>
+                    <p>{{user?.cardNumber}}</p>
                 </div>
 
                 <div>
                     <p class="h6">Card Expiry</p>
-                    <p>{{user.expiryMonth}}/{{user.expiryYear}}</p>
+                    <p>{{user?.expiryMonth}}/{{user?.expiryYear}}</p>
                 </div>
 
                 <div>
-                    <p class="h6">Card CVC</p>
-                    <p>{{user.cvc}}</p>
+                    <p class="h6">Card CVV</p>
+                    <p>{{user?.cvv}}</p>
                 </div>
             </div>
             <div class="col"></div>
@@ -58,101 +58,146 @@
             <div class="col"></div>
             <div class="col-7">
 
-                <div class="card rounded">
+                <div class="card rounded" *ngIf="user">
 
-                    <div class="card-header">
-                        <p class="mr-2 mb-1">Credit Card</p>
-                        <small>enter your card details</small>
-                    </div>
+                    <form [formGroup]="creditCardForm" (ngSubmit)="onSubmit()">
 
-                    <div class="card-body">
-
-                        <!-- NAME -->
-                        <div class="row m-4px">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="name" class="m-4px">Name</label>
-                                    <input class="form-control text-uppercase" id="name" type="text" placeholder="Name">
-                                </div>
-                            </div>
+                        <div class="card-header">
+                            <p class="mr-2 mb-1">Credit Card</p>
+                            <small>enter your card details</small>
                         </div>
-                        <!-- NUMBER -->
-                        <div class="row m-4px">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="ccnumber" class="m-4px">Credit Card Number</label>
 
-                                    <div class="input-group">
-                                        <input type="tel" class="form-control" minlength="16" maxlength="16"
-                                            placeholder="0000-0000-0000-0000" aria-label="Credit Card Number"
-                                            aria-describedby="basic-addon1"
-                                            pattern="[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text h-100 w-100" id="basic-addon1">
-                                                <i class="fas fa-credit-card"></i>
-                                            </span>
+                        <div class="card-body">
+
+                            <!-- NAME -->
+                            <div class="row m-4px">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="name" class="m-4px">Name</label>
+                                        <input class="form-control text-uppercase" id="name" type="text"
+                                            formControlName="name">
+                                    </div>
+                                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
+                                        <div *ngIf="name.errors?.['required']">
+                                            Name is required.
+                                        </div>
+                                        <div *ngIf="name.errors?.['invalidValue']">
+                                            Name does not match.
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- MONTH YEAR CVV -->
-                        <div class="row m-4px">
-                            <div class="form-group col-sm-4">
-                                <label for="ccmonth" class="m-4px">Month</label>
-                                <select class="form-control" id="ccmonth">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                    <option>9</option>
-                                    <option>10</option>
-                                    <option>11</option>
-                                    <option>12</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-sm-4">
-                                <label for="ccyear" class="m-4px">Year</label>
-                                <select class="form-control" id="ccyear">
-                                    <option>2014</option>
-                                    <option>2015</option>
-                                    <option>2016</option>
-                                    <option>2017</option>
-                                    <option>2018</option>
-                                    <option>2019</option>
-                                    <option>2020</option>
-                                    <option>2021</option>
-                                    <option>2022</option>
-                                    <option>2023</option>
-                                    <option>2024</option>
-                                    <option>2025</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="cvv" class="m-4px">CVV/CVC</label>
-                                    <input class="form-control" id="cvv" type="tel" minlength="3" maxlength="3"
-                                        placeholder="CVV">
+                            <!-- NUMBER -->
+                            <div class="row m-4px">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="ccnumber" class="m-4px">Credit Card Number</label>
+
+                                        <div class="input-group">
+                                            <input type="tel" class="form-control" aria-label="Credit Card Number"
+                                                minlength="16" maxlength="16" aria-describedby="basic-addon1"
+                                                formControlName="number">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text h-100 w-100" id="basic-addon1">
+                                                    <i class="fas fa-credit-card"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="number.invalid && (number.dirty || number.touched)"
+                                            class="text-danger">
+                                            <div *ngIf="number.errors?.['required']">
+                                                Credit Card Number is required.
+                                            </div>
+                                            <div *ngIf="number.errors?.['minlength']">
+                                                Invalid Credit Card Number.
+                                            </div>
+                                            <div *ngIf="number.errors?.['maxlength']">
+                                                Invalid Credit Card Number.
+                                            </div>
+                                            <div *ngIf="number.errors?.['invalidValue']">
+                                                Credit Card Number does not match.
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- MONTH YEAR CVV -->
+                            <div class="row m-4px">
+                                <!-- MONTH -->
+                                <div class="form-group col-sm-4">
+                                    <label for="ccmonth" class="m-4px">Month</label>
+                                    <select class="form-control" formControlName="month" id="ccmonth">
+                                        <option *ngFor="let item of monthArray" [ngValue]="item">
+                                            {{item}}
+                                        </option>
+                                    </select>
+
+                                    <div *ngIf="month.invalid && (month.dirty || month.touched)" class="text-danger">
+                                        <div *ngIf="month.errors?.['required']">
+                                            Month is required.
+                                        </div>
+                                        <div *ngIf="month.errors?.['invalidValue']">
+                                            Month does not match.
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- YEAR -->
+                                <div class="form-group col-sm-4">
+                                    <label for="ccyear" class="m-4px">Year</label>
+                                    <select class="form-control" formControlName="year" id="ccyear">
+                                        <option *ngFor="let item of yearArray" [ngValue]="item">
+                                            {{item}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="year.invalid && (year.dirty || year.touched)" class="text-danger">
+                                        <div *ngIf="year.errors?.['required']">
+                                            Year is required.
+                                        </div>
+                                        <div *ngIf="year.errors?.['invalidValue']">
+                                            Year does not match.
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- CVV -->
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="cvv" class="m-4px">CVV</label>
+                                        <input class="form-control" id="cvv" formControlName="cvv" type="tel"
+                                            minlength="3" maxlength="3" placeholder="CVV">
+                                        <div *ngIf="cvv.invalid && (cvv.dirty || cvv.touched)" class="text-danger">
+                                            <div *ngIf="cvv.errors?.['required']">
+                                                CVV is required.
+                                            </div>
+                                            <div *ngIf="cvv.errors?.['minlength']">
+                                                Invalid CVV.
+                                            </div>
+                                            <div *ngIf="cvv.errors?.['maxlength']">
+                                                Invalid CVV.
+                                            </div>
+                                            <div *ngIf="cvv.errors?.['invalidValue']">
+                                                CVV does not match.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
-                    </div>
-
-                    <div class="card-footer">
-                        <div class="d-flex justify-content-around">
-                            <button class="btn btn-danger" type="reset">
-                                <i class="mdi mdi-lock-reset"></i> Reset
-                            </button>
-                            <button class="btn btn-success float-right" type="submit">
-                                <i class="mdi mdi-gamepad-circle"></i> Submit
-                            </button>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-around">
+                                <button class="btn btn-danger" type="reset" (click)="resetForm();">
+                                    <i class="mdi mdi-lock-reset"></i> Reset
+                                </button>
+                                <button class="btn btn-success float-right" type="submit"
+                                    [disabled]="!creditCardForm.valid">
+                                    <i class="mdi mdi-gamepad-circle"></i> Submit
+                                </button>
+                            </div>
                         </div>
-                    </div>
+
+                    </form>
+
 
                 </div>
 
@@ -215,8 +260,8 @@
     <div class="back">
         <div class="stripe"></div>
         <div class="form-group cvc-group">
-            <label for="cvc">CVC</label>
-            <input class="cvc-input" type="tel" maxlength="3" id="cvc" required />
+            <label for="cvv">CVV</label>
+            <input class="cvc-input" type="tel" maxlength="3" id="cvv" required />
         </div>
     </div>
 </form> -->
