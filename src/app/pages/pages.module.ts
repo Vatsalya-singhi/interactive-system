@@ -15,6 +15,8 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
 import { Variant2Component } from './variant2/variant2.component';
+import { ReviewComponent } from '../modals/review/review.component';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -22,6 +24,7 @@ import { Variant2Component } from './variant2/variant2.component';
         // Component1Component,
         // Component2Component,
         Variant2Component,
+        ReviewComponent,
     ],
     imports: [
         CommonModule,
@@ -31,10 +34,12 @@ import { Variant2Component } from './variant2/variant2.component';
         ReactiveFormsModule,
 
         MaterialExampleModule,
-
-        // TableModule,
-        // ButtonModule,
-        // ToolbarModule,
+    ],
+    entryComponents: [
+        ReviewComponent,
+    ],
+    providers: [
+        { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }
     ]
 })
 export class PagesModule { }

@@ -3,6 +3,8 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AbstractControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ReviewComponent } from 'src/app/modals/review/review.component';
 
 @Component({
     selector: 'app-variant2',
@@ -34,6 +36,7 @@ export class Variant2Component implements OnInit {
         public _location: Location,
         public pageService: PagesService,
         public cdr: ChangeDetectorRef,
+        public dialog: MatDialog
     ) {
         this.generateUser();
     }
@@ -50,6 +53,19 @@ export class Variant2Component implements OnInit {
         const timeTaken: number = (this.endTime - this.startTime) / 1000;
         console.log("timeTaken=>", timeTaken);
         console.log("Number of backspaces/delete pressed=>", this.backSpaceCount);
+    }
+
+    public onReviewClick() {
+        let dialogRef = this.dialog.open(ReviewComponent, {
+            // width: '250px',
+            data: {
+                animal: 'panda',
+            }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log(`Dialog result: ${result}`); // Pizza!
+        });
     }
 
     public resetForm() {
