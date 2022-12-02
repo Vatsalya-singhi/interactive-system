@@ -1,3 +1,4 @@
+import { addDoc, collection, DocumentReference, Firestore } from '@angular/fire/firestore';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, tap } from 'rxjs';
@@ -10,7 +11,8 @@ import { Observable } from 'rxjs/internal/Observable';
 export class PagesService {
 
     constructor(
-        public http: HttpClient
+        public http: HttpClient,
+        public db: Firestore,
     ) { }
 
     public getAllLaunches(): Observable<Object> {
@@ -30,6 +32,8 @@ export class PagesService {
         );
     }
 
+
+
     public fetchUser(): Observable<Object> {
         return this.http.get(`https://randomuser.me/api/`)
             .pipe(
@@ -45,6 +49,13 @@ export class PagesService {
                     }
                 })
             )
+    }
+
+
+    public setDocument(data: any): Promise<DocumentReference<any>> {
+        return addDoc(collection(this.db, "interactive-system"), {
+            ...data
+        });
     }
 
 }

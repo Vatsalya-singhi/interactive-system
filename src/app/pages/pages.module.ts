@@ -4,9 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PagesRoutingModule } from './pages-routing.module';
 
-import { Component1Component } from './component1/component1.component';
-import { Component2Component } from './component2/component2.component';
-
 // MATERIAL MODULES
 import { MaterialExampleModule } from '../../material.module';
 
@@ -21,8 +18,6 @@ import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 
 @NgModule({
     declarations: [
-        // Component1Component,
-        // Component2Component,
         Variant2Component,
         ReviewComponent,
     ],

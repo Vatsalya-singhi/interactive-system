@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AbstractControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ReviewComponent } from 'src/app/modals/review/review.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-variant2',
@@ -14,11 +15,9 @@ import { ReviewComponent } from 'src/app/modals/review/review.component';
 
 export class Variant2Component implements OnInit {
 
+    public user: any = {};
     public monthArray: number[] = [];
     public yearArray: number[] = [];
-
-    public user: any = {};
-
     public creditCardForm: FormGroup = new FormGroup({
         name: new FormControl(""),
         number: new FormControl(null),
@@ -27,16 +26,18 @@ export class Variant2Component implements OnInit {
         cvv: new FormControl(null),
     });
 
+    // ANALYTICS
     public startTime: number = 0;
     public endTime: number = 0;
-
     public backSpaceCount = 0;
+    public keyCount = 0;
 
     constructor(
         public _location: Location,
         public pageService: PagesService,
         public cdr: ChangeDetectorRef,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        public snackBar: MatSnackBar,
     ) {
         this.generateUser();
     }
@@ -45,38 +46,6 @@ export class Variant2Component implements OnInit {
         this.monthArray = new Array(12).fill(0).map((val, index) => index + 1);
         this.yearArray = new Array(20).fill(0).map((val, index) => 2022 + index);
         this.startTime = new Date().getTime();
-    }
-
-    public onSubmit() {
-        // console.warn(this.creditCardForm.value);
-        this.endTime = new Date().getTime();
-        const timeTaken: number = (this.endTime - this.startTime) / 1000;
-        console.log("timeTaken=>", timeTaken);
-        console.log("Number of backspaces/delete pressed=>", this.backSpaceCount);
-    }
-
-    public onReviewClick() {
-        let dialogRef = this.dialog.open(ReviewComponent, {
-            // width: '250px',
-            data: {
-                animal: 'panda',
-            }
-        });
-
-        dialogRef.afterClosed().subscribe(result => {
-            console.log(`Dialog result: ${result}`); // Pizza!
-        });
-    }
-
-    public resetForm() {
-        this.creditCardForm.reset({
-            name: new FormControl(""),
-            number: new FormControl(null),
-            month: new FormControl(1),
-            year: new FormControl(2022),
-            cvv: new FormControl(null),
-        });
-        this.creditCardForm.markAsPristine();
     }
 
     public generateUser() {
@@ -93,8 +62,43 @@ export class Variant2Component implements OnInit {
             })
     }
 
+    /**
+     * FORMS HELPER
+    */
+
+    public onSubmit() {
+        this.endTime = new Date().getTime();
+        this.onReviewClick();
+        this.sendAnalytics();
+    }
+
+    public onReviewClick() {
+        let dialogRef = this.dialog.open(ReviewComponent, {
+            width: '500px',
+            data: {
+                timeTaken: (this.endTime - this.startTime),
+                backSpaceCount: this.backSpaceCount,
+                keyCount: this.keyCount,
+            }
+        });
+
+        // dialogRef.afterClosed().subscribe(result => {
+        //     console.log(`Dialog result: ${result}`); // Pizza!
+        // });
+    }
+
+    public resetForm() {
+        this.creditCardForm.reset({
+            name: new FormControl(""),
+            number: new FormControl(null),
+            month: new FormControl(1),
+            year: new FormControl(2022),
+            cvv: new FormControl(null),
+        });
+        this.creditCardForm.markAsPristine();
+    }
+
     public updateFormValidators() {
-        console.log(this.user);
         this.name.setValidators([Validators.required, this.validateName(this.user)]);
         this.number.setValidators([Validators.required, Validators.minLength(16), Validators.maxLength(16), this.validateNumber(this.user)]);
         this.month.setValidators([Validators.required, this.validateMonth(this.user)]);
@@ -108,15 +112,47 @@ export class Variant2Component implements OnInit {
         this.cvv.updateValueAndValidity();
     }
 
+
     /**
      * ANALYTICS
     */
+
     public onKeyUp(event: KeyboardEvent) {
-        console.log(event.keyCode);
+        this.keyCount += 1;
         if (event.keyCode === 8 || event.keyCode === 46) {
             this.backSpaceCount += 1;
-            console.log('backSpaceCount=>', this.backSpaceCount);
         }
+    }
+
+    public sendAnalytics() {
+        const timeTaken = (this.endTime - this.startTime);
+        const backSpaceCount = this.backSpaceCount;
+        const keyCount = this.keyCount;
+        const seconds = Number(((timeTaken) / 1000).toFixed(0));
+        const typingSpeed = Number((keyCount / seconds).toFixed(1));
+
+        let dataObj = {
+            seconds,
+            backSpaceCount,
+            keyCount,
+            typingSpeed,
+            variant: "old",
+        };
+
+        this.pageService.setDocument(dataObj)
+            .then((docRef) => {
+                // console.log(docRef.id);
+                this.snackBar.open("User Analytics saved!", "Close", {
+                    duration: 3000,
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+                this.snackBar.open("Error: User Analytics not saved!", "Close", {
+                    duration: 3000,
+                });
+            })
+
     }
 
     /**
