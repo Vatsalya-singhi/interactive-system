@@ -14,12 +14,14 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { Variant2Component } from './variant2/variant2.component';
 import { ReviewComponent } from '../modals/review/review.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { Variant1Component } from './variant1/variant1.component';
 
 
 @NgModule({
     declarations: [
         Variant2Component,
         ReviewComponent,
+        Variant1Component,
     ],
     imports: [
         CommonModule,
