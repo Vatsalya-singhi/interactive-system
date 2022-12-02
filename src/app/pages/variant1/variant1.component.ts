@@ -135,7 +135,8 @@ export class Variant1Component implements OnInit {
             backSpaceCount,
             keyCount,
             typingSpeed,
-            variant: "old",
+            variant: "new",
+            type: "variant1"
         };
 
         this.pageService.setDocument(dataObj)

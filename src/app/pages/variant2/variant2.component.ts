@@ -137,6 +137,7 @@ export class Variant2Component implements OnInit {
             keyCount,
             typingSpeed,
             variant: "old",
+            type: "variant2"
         };
 
         this.pageService.setDocument(dataObj)

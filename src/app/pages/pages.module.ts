@@ -19,9 +19,9 @@ import { Variant1Component } from './variant1/variant1.component';
 
 @NgModule({
     declarations: [
+        Variant1Component,
         Variant2Component,
         ReviewComponent,
-        Variant1Component,
     ],
     imports: [
         CommonModule,
