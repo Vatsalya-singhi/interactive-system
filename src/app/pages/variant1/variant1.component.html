@@ -1,4 +1,4 @@
-<div class="w-100 h-100 row rounded m-0 p-0" style="background : #f2f2f2; overflow:hidden">
+<div class="w-100 h-100 row rounded m-0 p-0" style="background : #f2f2f2;">
 
     <!-- left side -->
     <div class="col-3 pt-2 " style="background: #9fcdf2">
@@ -39,7 +39,7 @@
         <!-- RATE APP -->
         <div class="d-flex justify-content-center align-items-center">
             <mat-card class="example-card rounded m-1 p-0">
-                <button class="btn d-flex justify-content-center align-items-center" routerLink="/" >
+                <button class="btn d-flex justify-content-center align-items-center" routerLink="/">
                     <h2 class="m-2">Back to Home</h2>
                     <i class="fa-solid fa-arrow-left fa-2x"></i>
                 </button>
@@ -69,118 +69,68 @@
 
                         <div class="card-body">
 
-                            <!-- NAME -->
-                            <div class="row m-4px">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label for="name" class="m-4px">Name</label>
-                                        <input class="form-control text-uppercase" id="name" type="text"
-                                            formControlName="name" (keyup)="onKeyUp($event)">
+                            <div class="credit-card">
+                                <div class="front">
+                                    <div class="card-data-row">
+                                        <div class="brand-name">VS Bank</div>
+                                        <img src="assets/mastercard.svg" class="logo">
                                     </div>
-                                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
-                                        <div *ngIf="name.errors?.['required']">
-                                            Name is required.
-                                        </div>
-                                        <div *ngIf="name.errors?.['invalidValue']">
-                                            Name does not match.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- NUMBER -->
-                            <div class="row m-4px">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label for="ccnumber" class="m-4px">Credit Card Number</label>
 
-                                        <div class="input-group">
-                                            <input type="tel" class="form-control" aria-label="Credit Card Number"
-                                                minlength="16" maxlength="16" aria-describedby="basic-addon1"
-                                                formControlName="number" (keyup)="onKeyUp($event)">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text h-100 w-100" id="basic-addon1">
-                                                    <i class="fas fa-credit-card"></i>
-                                                </span>
-                                            </div>
+                                    <fieldset class="form-group">
+                                        <legend>Card Number</legend>
+                                        <label for="cc-1">Card Number</label>
+                                        <div class="cc-inputs horizontal-input-stack">
+                                            <input type="tel" maxlength="4" aria-label="Credit Card First 4 Digits"
+                                                id="cc-1" required pattern="[0-9]{4}">
+                                            <input type="tel" maxlength="4" aria-label="Credit Card Second 4 Digits"
+                                                required pattern="[0-9]{4}">
+                                            <input type="tel" maxlength="4" aria-label="Credit Card Third 4 Digits"
+                                                required pattern="[0-9]{4}">
+                                            <input type="tel" maxlength="4" aria-label="Credit Card Last 4 Digits"
+                                                required pattern="[0-9]{4}">
                                         </div>
-                                        <div *ngIf="number.invalid && (number.dirty || number.touched)"
-                                            class="text-danger">
-                                            <div *ngIf="number.errors?.['required']">
-                                                Credit Card Number is required.
-                                            </div>
-                                            <div *ngIf="number.errors?.['minlength']">
-                                                Invalid Credit Card Number.
-                                            </div>
-                                            <div *ngIf="number.errors?.['maxlength']">
-                                                Invalid Credit Card Number.
-                                            </div>
-                                            <div *ngIf="number.errors?.['invalidValue']">
-                                                Credit Card Number does not match.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- MONTH YEAR CVV -->
-                            <div class="row m-4px">
-                                <!-- MONTH -->
-                                <div class="form-group col-sm-4">
-                                    <label for="ccmonth" class="m-4px">Month</label>
-                                    <select class="form-control" formControlName="month" id="ccmonth">
-                                        <option *ngFor="let item of monthArray" [ngValue]="item">
-                                            {{item}}
-                                        </option>
-                                    </select>
+                                    </fieldset>
 
-                                    <div *ngIf="month.invalid && (month.dirty || month.touched)" class="text-danger">
-                                        <div *ngIf="month.errors?.['required']">
-                                            Month is required.
+                                    <div class="input-row">
+                                        <div class="form-group name-group">
+                                            <label for="name">Name</label>
+                                            <input type="text" id="name" required>
                                         </div>
-                                        <div *ngIf="month.errors?.['invalidValue']">
-                                            Month does not match.
-                                        </div>
+
+                                        <fieldset class="form-group">
+                                            <legend>Expiration</legend>
+                                            <label for="expiration-month">Expiration</label>
+                                            <div class="horizontal-input-stack">
+                                                <select id="expiration-month" aria-label="Expiration Month" required>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                </select>
+
+                                                <select id="expiration-year" aria-label="Expiration Year" required>
+                                                    <option>2022</option>
+                                                    <option>2023</option>
+                                                </select>
+
+                                            </div>
+                                        </fieldset>
                                     </div>
+
                                 </div>
-                                <!-- YEAR -->
-                                <div class="form-group col-sm-4">
-                                    <label for="ccyear" class="m-4px">Year</label>
-                                    <select class="form-control" formControlName="year" id="ccyear">
-                                        <option *ngFor="let item of yearArray" [ngValue]="item">
-                                            {{item}}
-                                        </option>
-                                    </select>
-                                    <div *ngIf="year.invalid && (year.dirty || year.touched)" class="text-danger">
-                                        <div *ngIf="year.errors?.['required']">
-                                            Year is required.
-                                        </div>
-                                        <div *ngIf="year.errors?.['invalidValue']">
-                                            Year does not match.
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- CVV -->
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="cvv" class="m-4px">CVV</label>
-                                        <input class="form-control" id="cvv" formControlName="cvv" type="tel"
-                                            minlength="3" maxlength="3" placeholder="CVV" (keyup)="onKeyUp($event)">
-                                        <div *ngIf="cvv.invalid && (cvv.dirty || cvv.touched)" class="text-danger">
-                                            <div *ngIf="cvv.errors?.['required']">
-                                                CVV is required.
-                                            </div>
-                                            <div *ngIf="cvv.errors?.['minlength']">
-                                                Invalid CVV.
-                                            </div>
-                                            <div *ngIf="cvv.errors?.['maxlength']">
-                                                Invalid CVV.
-                                            </div>
-                                            <div *ngIf="cvv.errors?.['invalidValue']">
-                                                CVV does not match.
-                                            </div>
+
+
+                                <div class="back">
+                                    <div class="stripe">
+                                        <div class="form-group cvc-group">
+                                            <label for="cvc">CVC</label>
+                                            <input class="cvc-input" type="tel" maxlength="3" id="cvc" required>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
 
                         </div>
 
