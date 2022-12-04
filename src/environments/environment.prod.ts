@@ -1,13 +1,12 @@
 export const environment = {
-  production: true,
-  firebaseConfig : {
-    apiKey: "AIzaSyDnLdqKBsavxyXBGJ_6N8wpS1XKlgagd_o",
-    authDomain: "canva-share.firebaseapp.com",
-    databaseURL: "https://canva-share.firebaseio.com",
-    projectId: "canva-share",
-    storageBucket: "canva-share.appspot.com",
-    messagingSenderId: "914595712966",
-    appId: "1:914595712966:web:6f3617de51337b6d342cc7",
-    measurementId: "G-95JEGSWHCE"
-  }
+    production: true,
+    firebaseConfig: {
+        apiKey: "AIzaSyDFuOeITlkuasih-yzGWmuIjIBp6SVsx7A",
+        authDomain: "interactive-systems-c87dc.firebaseapp.com",
+        projectId: "interactive-systems-c87dc",
+        storageBucket: "interactive-systems-c87dc.appspot.com",
+        messagingSenderId: "958143841232",
+        appId: "1:958143841232:web:9da313f3c6a803d8daafd5",
+        measurementId: "G-FN5HW9G7P9"
+    }
 };
