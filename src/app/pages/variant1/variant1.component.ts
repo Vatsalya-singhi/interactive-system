@@ -114,11 +114,16 @@ export class Variant1Component implements OnInit {
 
     public resetForm() {
         this.creditCardForm.reset({
-            name: new FormControl(""),
-            number: new FormControl(null),
-            month: new FormControl(1),
-            year: new FormControl(2022),
-            cvv: new FormControl(null),
+            name: "",
+            number: {
+                1: null,
+                2: null,
+                3: null,
+                4: null,
+            },
+            month: 1,
+            year: 2022,
+            cvv: null,
         });
         this.creditCardForm.markAsPristine();
     }
