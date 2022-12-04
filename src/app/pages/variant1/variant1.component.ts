@@ -6,6 +6,7 @@ import { AbstractControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ReviewComponent } from 'src/app/modals/review/review.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { of, switchMap } from 'rxjs';
 
 @Component({
     selector: 'app-variant1',
@@ -19,7 +20,12 @@ export class Variant1Component implements OnInit {
     public yearArray: number[] = [];
     public creditCardForm: FormGroup = new FormGroup({
         name: new FormControl(""),
-        number: new FormControl(null),
+        number: new FormGroup({
+            1: new FormControl(),
+            2: new FormControl(),
+            3: new FormControl(),
+            4: new FormControl(),
+        }),
         month: new FormControl(1),
         year: new FormControl(2022),
         cvv: new FormControl(null),
@@ -39,6 +45,7 @@ export class Variant1Component implements OnInit {
         public snackBar: MatSnackBar,
     ) {
         this.generateUser();
+
     }
 
     public ngOnInit(): void {
@@ -47,17 +54,36 @@ export class Variant1Component implements OnInit {
         this.startTime = new Date().getTime();
     }
 
+    public ngAfterViewInit(): void {
+        this.customCodeBlock();
+    }
+
+
     public generateUser() {
         this.pageService.fetchUser()
-            .subscribe((data) => {
-                this.user = data;
-                this.cdr.detectChanges();
-                setTimeout(() => {
+            .pipe(
+                switchMap((res: any) => {
+                    const condition = (/^[a-zA-Z]+(-[a-zA-Z]+)*$/).test(res.cardHolderName);
+                    if (!condition) {
+                        console.log('NON English Name =>', res.cardHolderName);
+                        // debugger;
+                        return this.pageService.fetchUser();
+                    }
+                    return of(res);
+                })
+            )
+            .subscribe({
+                next: (data) => {
+                    this.user = data;
                     this.cdr.detectChanges();
-                    this.updateFormValidators();
-                });
-            }, (err) => {
-                console.log(err);
+                    setTimeout(() => {
+                        this.cdr.detectChanges();
+                        this.updateFormValidators();
+                    });
+                },
+                error: (err) => {
+                    console.log(err);
+                }
             })
     }
 
@@ -99,7 +125,7 @@ export class Variant1Component implements OnInit {
 
     public updateFormValidators() {
         this.name.setValidators([Validators.required, this.validateName(this.user)]);
-        this.number.setValidators([Validators.required, Validators.minLength(16), Validators.maxLength(16), this.validateNumber(this.user)]);
+        this.number.setValidators([Validators.required, this.validateNumber(this.user)]);
         this.month.setValidators([Validators.required, this.validateMonth(this.user)]);
         this.year.setValidators([Validators.required, this.validateYear(this.user)]);
         this.cvv.setValidators([Validators.required, Validators.minLength(3), Validators.maxLength(3), this.validateCVV(this.user)]);
@@ -111,6 +137,40 @@ export class Variant1Component implements OnInit {
         this.cvv.updateValueAndValidity();
     }
 
+
+
+    public customCodeBlock() {
+        const ALLOW_LIST = new Set(["Backspace", "ArrowLeft", "ArrowRight", "Tab", "Enter", "ArrowDown", "ArrowUp"]);
+        const partSelector = ".card-number__part";
+        document.querySelectorAll(partSelector).forEach((domInput) => {
+            domInput.addEventListener("keydown", (e: any) => {
+                if ((e.key < "0" || "9" < e.key) && !ALLOW_LIST.has(e.code)) {
+                    e.preventDefault();
+                    return;
+                }
+                if (
+                    (!e.target.value && e.code === "Backspace") ||
+                    ((e.code === "ArrowLeft" || e.code === "Backspace") &&
+                        e.target.selectionStart === 0)
+                ) {
+                    const previousSibling = e.target.previousElementSibling;
+                    if (previousSibling?.tagName?.toLowerCase() === "input") {
+                        previousSibling.focus();
+                    }
+                }
+                if (
+                    (e.target.value.length === 4 && !(e.key < "0" || "9" < e.key)) ||
+                    (e.code === "ArrowRight" &&
+                        e.target.selectionEnd === e.target.value.length)
+                ) {
+                    const nextSibling = e.target.nextElementSibling;
+                    if (nextSibling?.tagName?.toLowerCase() === "input") {
+                        nextSibling.focus();
+                    }
+                }
+            })
+        })
+    }
 
     /**
      * ANALYTICS
@@ -162,9 +222,24 @@ export class Variant1Component implements OnInit {
     get name(): FormControl {
         return this.creditCardForm.get("name") as FormControl;
     }
-    get number(): FormControl {
-        return this.creditCardForm.get("number") as FormControl;
+    get number(): FormGroup {
+        return this.creditCardForm.get("number") as FormGroup;
     }
+
+    get number1(): FormControl {
+        return this.creditCardForm.get("number")?.get("1") as FormControl;
+    }
+    get number2(): FormControl {
+        return this.creditCardForm.get("number")?.get("2") as FormControl;
+    }
+    get number3(): FormControl {
+        return this.creditCardForm.get("number")?.get("3") as FormControl;
+    }
+    get number4(): FormControl {
+        return this.creditCardForm.get("number")?.get("4") as FormControl;
+    }
+
+
     get month(): FormControl {
         return this.creditCardForm.get("month") as FormControl;
     }
@@ -194,8 +269,9 @@ export class Variant1Component implements OnInit {
     public validateNumber = (user: any) => {
         return (control: AbstractControl) => {
             if (!user.cardNumber) return null;
-
-            if (control.value != user.cardNumber) {
+            const inputCardNumber = Number(`${this.number1.value ?? 0}${this.number2.value ?? 0}${this.number3.value ?? 0}${this.number4.value ?? 0}`)
+            const condition = isNaN(inputCardNumber) || inputCardNumber != user.cardNumber;
+            if (condition) {
                 return { invalidValue: true };
             }
             return null;

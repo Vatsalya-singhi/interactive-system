@@ -6,6 +6,7 @@ import { AbstractControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ReviewComponent } from 'src/app/modals/review/review.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { of, switchMap } from 'rxjs';
 
 @Component({
     selector: 'app-variant2',
@@ -50,15 +51,29 @@ export class Variant2Component implements OnInit {
 
     public generateUser() {
         this.pageService.fetchUser()
-            .subscribe((data) => {
-                this.user = data;
-                this.cdr.detectChanges();
-                setTimeout(() => {
+            .pipe(
+                switchMap((res: any) => {
+                    const condition = (/^[a-zA-Z]+(-[a-zA-Z]+)*$/).test(res.cardHolderName);
+                    if (!condition) {
+                        console.log('NON English Name =>', res.cardHolderName);
+                        // debugger;
+                        return this.pageService.fetchUser();
+                    }
+                    return of(res);
+                })
+            )
+            .subscribe({
+                next: (data) => {
+                    this.user = data;
                     this.cdr.detectChanges();
-                    this.updateFormValidators();
-                });
-            }, (err) => {
-                console.log(err);
+                    setTimeout(() => {
+                        this.cdr.detectChanges();
+                        this.updateFormValidators();
+                    });
+                },
+                error: (err) => {
+                    console.log(err);
+                }
             })
     }
 

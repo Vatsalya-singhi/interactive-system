@@ -1,7 +1,7 @@
 import { addDoc, collection, DocumentReference, Firestore } from '@angular/fire/firestore';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, tap } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
