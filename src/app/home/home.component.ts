@@ -90,7 +90,7 @@ export class HomeComponent implements OnInit {
         interactivity: {
             events: {
                 onClick: {
-                    enable: true,
+                    enable: false, //true,
                     mode: ClickMode.push,
                 },
                 onHover: {
