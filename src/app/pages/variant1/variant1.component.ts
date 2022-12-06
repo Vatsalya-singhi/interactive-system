@@ -313,4 +313,7 @@ export class Variant1Component implements OnInit {
         }
     }
 
+    public getFormattedCVV(cvv: number = 0) {
+        return (cvv < 100) ? `0${cvv}` : `${cvv}`;
+    }
 }

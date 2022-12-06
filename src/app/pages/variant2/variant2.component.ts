@@ -248,6 +248,8 @@ export class Variant2Component implements OnInit {
         }
     }
 
-
+    public getFormattedCVV(cvv: number = 0) {
+        return (cvv < 100) ? `0${cvv}` : `${cvv}`;
+    }
 
 }
