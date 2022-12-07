@@ -1,0 +1,35 @@
+<!-- <div mat-dialog-content>
+
+    <mat-card>
+        <mat-card-content>Simple card</mat-card-content>
+    </mat-card>
+
+</div> -->
+
+
+<h2 mat-dialog-title>User Interaction Analysis</h2>
+<mat-dialog-content class="mat-typography">
+    <p>
+        Based on your interaction multiple performance insights have be gathered and showcased below.
+    </p>
+
+    <p>
+        The objective of designing a fluid UI is to allow users to quickly perform actions such as
+        digital payments, search and filling up forms with little to no hurdles.
+    </p>
+
+    <h3> Performance Analysis</h3>
+
+    <ul>
+        <li>Time Taken : {{formattedTime}} s</li>
+        <li>Average Error Count : {{backSpaceCount}} </li>
+        <li>Average Typing Speed : {{typingSpeed}} chars/sec </li>
+    </ul>
+
+    <p>Thank you for providing feedback!</p>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial routerLink="/">Back to Home</button>
+</mat-dialog-actions>

@@ -1,0 +1,173 @@
+<div class="w-100 h-100 row rounded m-0 p-0" style="background : #f2f2f2;">
+
+    <!-- left side -->
+    <div class="col-3 pt-2 " style="background: #9fcdf2">
+
+        <!-- AVATAR -->
+        <div class="d-flex justify-content-center align-items-center m-2">
+            <img [src]="user?.profile" alt="Avatar" loading="lazy" height="150px" width="150px"
+                style="border-radius: 50%; object-fit: cover; ">
+        </div>
+        <p class="d-flex align-self-center justify-content-center text-secondary m-0 mt-2 h5">Profile Details</p>
+        <!-- CARD CREDENTIALS -->
+        <div class="h-50 row px-3">
+            <div class="col"></div>
+            <div class="col-9 d-flex flex-column justify-content-center">
+                <!-- CARD INFO -->
+                <div>
+                    <p class="h6">Card Holder</p>
+                    <p>{{user?.cardHolderName}}</p>
+                </div>
+
+                <div>
+                    <p class="h6">Card Number</p>
+                    <p>{{user?.cardNumber}}</p>
+                </div>
+
+                <div>
+                    <p class="h6">Card Expiry</p>
+                    <p>{{user?.expiryMonth}}/{{user?.expiryYear}}</p>
+                </div>
+
+                <div>
+                    <p class="h6">Card CVV</p>
+                    <p>{{getFormattedCVV(user?.cvv)}}</p>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+        <!-- RATE APP -->
+        <div class="d-flex justify-content-center align-items-center">
+            <mat-card class="example-card rounded m-1 p-0">
+                <button class="btn d-flex justify-content-center align-items-center" routerLink="/">
+                    <h2 class="m-2">Back to Home</h2>
+                    <i class="fa-solid fa-arrow-left fa-2x"></i>
+                </button>
+            </mat-card>
+        </div>
+
+
+    </div>
+
+    <!-- right side -->
+    <div class="col-9">
+
+        <h1 class="my-5 d-flex justify-content-center">Task: Enter the following credentials to the form.</h1>
+
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-7">
+
+                <div class="card rounded" *ngIf="user">
+
+                    <form [formGroup]="creditCardForm" (ngSubmit)="onSubmit()">
+
+                        <div class="card-header">
+                            <p class="mr-2 mb-1">Credit Card</p>
+                            <small>Enter the card details</small>
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="credit-card">
+                                <div class="front">
+                                    <div class="card-data-row">
+                                        <div class="brand-name">VS Bank</div>
+                                        <img src="assets/mastercard.svg" class="logo">
+                                    </div>
+
+                                    <!-- CARD NUMBER -->
+                                    <fieldset class="form-group" formGroupName="number">
+                                        <legend>Card Number</legend>
+                                        <label for="cc-1">Card Number</label>
+                                        <div data-connected-inputs class="cc-inputs horizontal-input-stack">
+                                            <input formControlName="1" type="tel" maxlength="4"
+                                                aria-label="Credit Card First 4 Digits" id="cc-1" required
+                                                pattern="[0-9]{4}" class="card-number__part" (keyup)="onKeyUp($event)">
+                                            <input formControlName="2" type="tel" maxlength="4"
+                                                aria-label="Credit Card Second 4 Digits" id="cc-2" required
+                                                pattern="[0-9]{4}" class="card-number__part" (keyup)="onKeyUp($event)">
+                                            <input formControlName="3" type="tel" maxlength="4"
+                                                aria-label="Credit Card Third 4 Digits" id="cc-3" required
+                                                pattern="[0-9]{4}" class="card-number__part" (keyup)="onKeyUp($event)">
+                                            <input formControlName="4" type="tel" maxlength="4"
+                                                aria-label="Credit Card Last 4 Digits" id="cc-4" required
+                                                pattern="[0-9]{4}" class="card-number__part" (keyup)="onKeyUp($event)">
+                                        </div>
+                                    </fieldset>
+
+                                    <div class="input-row">
+                                        <!-- NAME -->
+                                        <div class="form-group name-group">
+                                            <label for="name">Name</label>
+                                            <input class="text-uppercase" type="text" id="name" formControlName="name"
+                                                required (keyup)="onKeyUp($event)">
+                                        </div>
+
+                                        <!-- MONTH YEAR -->
+                                        <fieldset class="form-group">
+                                            <legend>Expiration</legend>
+                                            <label for="expiration-month">Expiration</label>
+                                            <div class="horizontal-input-stack">
+                                                <select class="" formControlName="month" id="expiration-month"
+                                                    aria-label="Expiration Month" required>
+                                                    <option *ngFor="let item of monthArray" [ngValue]="item">
+                                                        {{item}}
+                                                    </option>
+                                                </select>
+
+                                                <select class="" formControlName="year" id="expiration-year"
+                                                    aria-label="Expiration Year" required>
+                                                    <option *ngFor="let item of yearArray" [ngValue]="item">
+                                                        {{item}}
+                                                    </option>
+                                                </select>
+
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                </div>
+
+
+                                <!-- CVC -->
+                                <div class="back">
+                                    <div class="stripe">
+                                        <div class="form-group cvc-group">
+                                            <label for="cvc">CVC</label>
+                                            <input class="cvc-input" formControlName="cvv" type="tel" maxlength="3"
+                                                maxlength="3" id="cvc" pattern="[0-9]{3}" required
+                                                (keyup)="onKeyUp($event)">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-around">
+                                <button class="btn btn-danger" type="reset" (click)="resetForm();">
+                                    <i class="mdi mdi-lock-reset"></i> Reset
+                                </button>
+                                <button class="btn btn-success float-right" type="submit"
+                                    [disabled]="!creditCardForm.valid">
+                                    <i class="mdi mdi-gamepad-circle"></i> Submit
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+
+
+                </div>
+
+            </div>
+            <div class="col"></div>
+        </div>
+
+    </div>
+
+</div>

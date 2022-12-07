@@ -1,42 +1,59 @@
-<div class="container-fluid p-0 m-0">
+<div class="w-100 h-100" style="overflow:hidden;">
+    <div class="row">
 
-    <div class="d-flex parent-container">
-        <div class="w-30">
-            <ng-particles id="tsparticles" [options]="particlesOptions" [particlesInit]="particlesInit"
-                (particlesLoaded)="particlesLoaded($event)"></ng-particles>
+        <div class="col-md-3 p-0 m-0 d-none d-md-block">
+            <div class="tsparticles-parent">
+                <ng-particles id="tsparticles" [options]="particlesOptions" [particlesInit]="particlesInit"
+                    (particlesLoaded)="particlesLoaded($event)"></ng-particles>
+            </div>
         </div>
 
-        <div class="w-70 p-5">
+        <div class="col-md-9 col-sm-12 col-xs-12 p-5 m-0" style="background:#f2f2f2;">
+
+            <div class="d-flex justify-content-center mt-4">
+                <a type="button">
+                    <i class="fa-solid fa-crop-simple fa-fw fa-3x">
+                    </i>
+                </a>
+            </div>
 
             <h1 class="text-center my-5">Interactive Systems</h1>
 
-            <div class="d-flex align-items-center justify-content-around">
+            <h3>Goals : </h3>
+            <ul>
+                <li class="text-wrap">
+                    The goals of UI designs are to place users in control of the interface as well as reduce cognitive
+                    load.
+                </li>
 
-                <div class="card box-shadow-1" style="width: 18rem;">
-                    <img class="card-img-top p-2" src="/assets/bootstrap-logo-shadow.png" alt="Card image cap"
-                        height="200px" width="150px" title="Bootstrap Component">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
+                <li class="text-wrap">
+                    This application is built with the purpose of designing and developing a system where users can
+                    interact with similar UI components & elements, and upon user interactions multiple performance
+                    insights can be gathered and showcased.
+                </li>
+                <li class="text-wrap">
+                    The gathered data can be used to improve the overall design of the user interface and also better
+                    understand how users interact with it. This would be of great help to not just businesses, but also
+                    to individual users who wish to understand and improve their own user interface interactions as well
+                    as parameters such as user retention and establishing trust and recognition.
+                </li>
+            </ul>
 
-                <div class="card box-shadow-1" style="width: 18rem;">
-                    <img class="card-img-top p-2" src="/assets/angular-material-logo.svg" alt="Card image cap"
-                        height="200px" width="150px" title="Angular Material Component">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
+            <div class="d-flex align-items-center justify-content-around mt-5">
+
+                <a type="button" class="btn btn-primary btn-lg" routerLink="pages/variant-2">
+                    Variant 1
+                    <i class="fa-solid fa-forward"></i>
+                </a>
+
+                <a type="button" class="btn btn-primary btn-lg" routerLink="pages/variant-1">
+                    Variant 2
+                    <i class="fa-solid fa-forward"></i>
+                </a>
 
             </div>
 
         </div>
-    </div>
 
+    </div>
 </div>
